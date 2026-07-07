@@ -1,7 +1,9 @@
 // Thin fetch wrapper. Attaches the JWT (if any) and throws a readable Error on
 // non-2xx responses so RTK thunks can surface the message.
 
-const BASE = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+import { API_BASE_URL } from "../config";
+
+const BASE = API_BASE_URL;
 
 const TOKEN_KEY = "trustcomply_token";
 export const getToken = () => localStorage.getItem(TOKEN_KEY);
