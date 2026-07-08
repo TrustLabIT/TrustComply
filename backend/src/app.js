@@ -9,6 +9,7 @@ const filingRoutes = require("./routes/filing.routes");
 const directorRoutes = require("./routes/director.routes");
 const registerCheckRoutes = require("./routes/registerCheck.routes");
 const payrollRoutes = require("./routes/payroll.routes");
+const medicalRoutes = require("./routes/medical.routes");
 const { notFound, errorHandler } = require("./middleware/error.middleware");
 
 const app = express();
@@ -47,6 +48,7 @@ app.use("/api/filings", filingRoutes);
 app.use("/api/directors", directorRoutes);
 app.use("/api/register-checks", registerCheckRoutes);
 app.use("/api/payroll-sync", payrollRoutes);
+app.use("/api/medical", medicalRoutes);
 
 app.get("/", (req, res) => {
   res.json({ message: "TrustComply API is running" });

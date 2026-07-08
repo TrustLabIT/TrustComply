@@ -22,6 +22,7 @@ import CaPayroll from "./pages/CaPayroll";
 import Archive from "./pages/Archive";
 import Regime from "./pages/Regime";
 import Settings from "./pages/Settings";
+import MedicalLicence from "./pages/MedicalLicence";
 
 export default function App() {
   const { user, loading } = useAuth();
@@ -58,6 +59,8 @@ export default function App() {
         <Route path="ca/gst" element={<RequireAccess navId="ca-gst"><CaGst /></RequireAccess>} />
         <Route path="ca/it" element={<RequireAccess navId="ca-it"><CaIt /></RequireAccess>} />
         <Route path="ca/payroll" element={<RequireAccess navId="ca-payroll"><CaPayroll /></RequireAccess>} />
+
+        <Route path="medical/licence" element={<MedicalLicence />} />
 
         <Route path="archive" element={<Archive />} />
         <Route path="regime" element={<Regime />} />
