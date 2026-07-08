@@ -124,11 +124,11 @@ export default function MedicalLicence() {
       {/* Detailed table */}
       <SectionCard title="Licence register" chip="Synced from TAMS">
         <Box sx={{ display: "flex", gap: 1.25, flexWrap: "wrap", mb: 1.75 }}>
-          <TextField size="small" select label="Type" value={filters.license_type} onChange={setFilter("license_type")} sx={{ minWidth: 150, bgcolor: "#fff" }}>
+          <TextField size="small" select value={filters.license_type} onChange={setFilter("license_type")} SelectProps={{ displayEmpty: true }} sx={{ minWidth: 150, bgcolor: "#fff" }}>
             <MenuItem value="">All types</MenuItem>
             {TYPE_OPTIONS.map((t) => <MenuItem key={t} value={t}>{t}</MenuItem>)}
           </TextField>
-          <TextField size="small" select label="Location" value={filters.location} onChange={setFilter("location")} sx={{ minWidth: 180, bgcolor: "#fff" }}>
+          <TextField size="small" select value={filters.location} onChange={setFilter("location")} SelectProps={{ displayEmpty: true }} sx={{ minWidth: 180, bgcolor: "#fff" }}>
             <MenuItem value="">All locations</MenuItem>
             {locOptions.map((l) => <MenuItem key={l.id} value={l.id}>{l.name}</MenuItem>)}
           </TextField>
