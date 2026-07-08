@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import {
   Box, Grid, Paper, Typography, Chip, Button, TextField, MenuItem, CircularProgress,
   Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
@@ -9,7 +9,6 @@ import PageHead from "../components/common/PageHead";
 import SectionCard from "../components/common/SectionCard";
 import Pill from "../components/common/Pill";
 import { fetchLicenceSummary, fetchLicenceList, setLicenceFilter } from "../store/medicalSlice";
-import { getLicenceListApi } from "../api/medical";
 import { fmt } from "../data/helpers";
 
 const mono = { fontFamily: "'Space Mono', monospace" };
@@ -51,29 +50,30 @@ function LicenceCard({ type, d }) {
 export default function MedicalLicence() {
   const dispatch = useDispatch();
   const { summary, summaryAt, listAt, list, filters, loadingSummary, loadingList, error } = useSelector((s) => s.medical);
-  const [locOptions, setLocOptions] = useState([]);
 
-  // One-time: pull the full (unfiltered) list to populate the location dropdown.
-  useEffect(() => {
-    getLicenceListApi()
-      .then((res) => {
-        const seen = new Map();
-        (res?.data || []).forEach((r) => { if (r.location_id != null) seen.set(r.location_id, r.location); });
-        setLocOptions([...seen].map(([id, name]) => ({ id, name })));
-      })
-      .catch(() => {});
-  }, []);
+  // Full licence list, fetched once. TAMS's list endpoint has a server-side bug
+  // when filtering by ?location=, so the table is filtered client-side instead.
+  useEffect(() => { dispatch(fetchLicenceList({})); }, [dispatch]);
+  // Summary supports server-side location filtering (that TAMS endpoint works).
+  useEffect(() => { dispatch(fetchLicenceSummary(filters.location || undefined)); }, [dispatch, filters.location]);
 
-  // List refetches on any filter change; summary refetches on location change.
-  useEffect(() => {
-    dispatch(fetchLicenceList({ license_type: filters.license_type, location: filters.location }));
-  }, [dispatch, filters.license_type, filters.location]);
-  useEffect(() => {
-    dispatch(fetchLicenceSummary(filters.location || undefined));
-  }, [dispatch, filters.location]);
+  // Location dropdown options + client-side filtering, both derived from the full list.
+  const locOptions = useMemo(() => {
+    const seen = new Map();
+    list.forEach((r) => { if (r.location_id != null) seen.set(String(r.location_id), r.location); });
+    return [...seen].map(([id, name]) => ({ id, name }));
+  }, [list]);
+
+  const filteredList = useMemo(
+    () => list.filter((r) =>
+      (!filters.license_type || r.license_type === filters.license_type) &&
+      (!filters.location || String(r.location_id) === String(filters.location))
+    ),
+    [list, filters.license_type, filters.location]
+  );
 
   const refresh = () => {
-    dispatch(fetchLicenceList(filters));
+    dispatch(fetchLicenceList({}));
     dispatch(fetchLicenceSummary(filters.location || undefined));
   };
   const setFilter = (k) => (e) => dispatch(setLicenceFilter({ [k]: e.target.value }));
@@ -136,7 +136,7 @@ export default function MedicalLicence() {
 
         {loadingList ? (
           <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}><CircularProgress size={26} sx={{ color: "brand.teal" }} /></Box>
-        ) : list.length === 0 ? (
+        ) : filteredList.length === 0 ? (
           <Box sx={{ py: 3, textAlign: "center", color: "text.secondary", fontSize: 13 }}>No licences match.</Box>
         ) : (
           <TableContainer sx={{ overflowX: "auto" }}>
@@ -149,7 +149,7 @@ export default function MedicalLicence() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {list.map((r) => (
+                {filteredList.map((r) => (
                   <TableRow key={r.id} sx={rowTone(r)}>
                     <TableCell sx={{ ...td, fontWeight: 700 }}>{r.location || `Location ${r.location_id}`}</TableCell>
                     <TableCell sx={td}><Box component="span" sx={{ ...mono, fontSize: 11, px: 0.75, py: "1px", borderRadius: "5px", bgcolor: "brand.tealTint", color: "brand.tealDark" }}>{r.license_type}</Box></TableCell>
