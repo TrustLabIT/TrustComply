@@ -16,7 +16,7 @@ export const CATS = {
     "Statutory register",
     "Other secretarial",
   ],
-  CA: ["TDS / TCS", "GST", "Income tax", "Payroll statutory", "Other tax"],
+  CA: ["TDS / TCS", "GST", "Income tax", "Other tax"],
 };
 
 export const STATUS_LABEL = {
