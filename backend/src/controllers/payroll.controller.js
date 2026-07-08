@@ -6,14 +6,18 @@ const PACE_URL = process.env.PACE_API_URL;
 const PACE_KEY = process.env.PACE_API_KEY;
 
 async function fetchPaceYear(year) {
+  // Missing config → treat as unreachable (so the UI shows an error, not "empty").
+  if (!PACE_URL || !PACE_KEY) return null;
   const url = `${PACE_URL}/statutory/payroll?year=${year}&api_key=${encodeURIComponent(PACE_KEY)}`;
   try {
     const res = await fetch(url);
     const json = await res.json();
-    if (!json || !json.success || !Array.isArray(json.data)) return [];
+    // PACE auth failure / server error → unreachable (bad or missing API key).
+    if (!json || json.success === false) return null;
+    if (!Array.isArray(json.data)) return [];
     return json.data;
   } catch (e) {
-    return null; // signals PACE unreachable
+    return null; // network error / PACE down
   }
 }
 

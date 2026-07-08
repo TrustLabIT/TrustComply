@@ -19,11 +19,18 @@ const allowedOrigins = (process.env.CLIENT_ORIGIN || "")
   .map((o) => o.trim())
   .filter(Boolean);
 
-app.use(
-  cors({
-    origin: allowedOrigins.length ? allowedOrigins : "*",
-  })
-);
+// Allow: no-origin (curl/mobile), any configured CLIENT_ORIGIN, and any
+// localhost/127.0.0.1 origin (for local dev against this server). JWT lives in a
+// header (not cookies), so this is safe.
+const corsOrigin = (origin, cb) => {
+  if (!origin) return cb(null, true);
+  if (allowedOrigins.includes(origin)) return cb(null, true);
+  if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) return cb(null, true);
+  if (allowedOrigins.length === 0) return cb(null, true); // nothing configured → open
+  return cb(new Error(`CORS: origin ${origin} not allowed`));
+};
+
+app.use(cors({ origin: corsOrigin }));
 // Documents are uploaded inline as data URIs, so allow a generous JSON body size.
 app.use(express.json({ limit: "25mb" }));
 app.use(express.urlencoded({ extended: true, limit: "25mb" }));
