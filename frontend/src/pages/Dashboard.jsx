@@ -10,8 +10,6 @@ import { useDrawers } from "../context/DrawerContext";
 import { isOpen, isOverdue, daysTo, penaltyEstimate, inr } from "../data/helpers";
 import { canCreate } from "../data/access";
 
-const mono = { fontFamily: "'Space Mono', monospace" };
-
 export default function Dashboard() {
   const { openFiling } = useDrawers();
   const all = useRows();
@@ -137,9 +135,6 @@ export default function Dashboard() {
             any legacy form is pending, regularise before the window shuts.
           </li>
         </Box>
-        <Typography sx={{ ...mono, fontSize: "11px", color: "text.secondary", mt: 1.25 }}>
-          See “2026 regulatory watch” in the rail for the full brief with sources.
-        </Typography>
       </Box>
     </Box>
   );

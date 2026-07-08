@@ -36,7 +36,7 @@ export default function CaIt() {
       />
 
       <ServerFilingList cat="Income tax" />
-
+ 
       <SectionCard title="Exit-process tax checkpoints">
         <RegCard title="On-time ITR filing preserves loss carry-forward">
           The Sec 72A/79 value identified in the exit structure exists only if returns claiming the
@@ -60,3 +60,7 @@ export default function CaIt() {
     </Box>
   );
 }
+
+
+
+ 

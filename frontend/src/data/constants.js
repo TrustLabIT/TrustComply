@@ -82,13 +82,13 @@ export const NAV = [
   { id: "ca-tds", label: "TDS / TCS", path: "/ca/tds" },
   { id: "ca-gst", label: "GST", path: "/ca/gst" },
   { id: "ca-it", label: "Income tax", path: "/ca/it" },
+  { id: "archive", label: "SRN / ARN archive", path: "/archive" },
   { sec: "Employment Statutory" },
-  { id: "ca-payroll", label: "Payroll statutory", path: "/ca/payroll" },
+  { id: "emp-epfo", label: "EPFO", path: "/emp/epfo" },
+  { id: "emp-esi", label: "ESI", path: "/emp/esi" },
+  { id: "emp-pt", label: "Professional tax", path: "/emp/pt" },
   { sec: "Medical Statutory" },
   { id: "medical-licence", label: "Licence", path: "/medical/licence" },
-  { sec: "Records" },
-  { id: "archive", label: "SRN / ARN archive", path: "/archive" },
-  { id: "regime", label: "2026 regulatory watch", path: "/regime" },
   { sec: "Administration" },
   { id: "settings", label: "Settings & access", path: "/settings" },
 ];
@@ -101,7 +101,6 @@ export const NAV_COUNTS = {
   "ca-tds": (r) => r.cat === "TDS / TCS",
   "ca-gst": (r) => r.cat === "GST",
   "ca-it": (r) => r.cat === "Income tax",
-  "ca-payroll": (r) => r.cat === "Payroll statutory",
 };
 
 export const nextStatus = (s) => ({ ns: "ip", ip: "ps", ps: "fd", fd: "ak" }[s]);

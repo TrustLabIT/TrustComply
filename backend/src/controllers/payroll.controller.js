@@ -5,10 +5,11 @@
 const PACE_URL = process.env.PACE_API_URL;
 const PACE_KEY = process.env.PACE_API_KEY;
 
-async function fetchPaceYear(year) {
+async function fetchPaceYear(year, groupBy) {
   // Missing config → treat as unreachable (so the UI shows an error, not "empty").
   if (!PACE_URL || !PACE_KEY) return null;
-  const url = `${PACE_URL}/statutory/payroll?year=${year}&api_key=${encodeURIComponent(PACE_KEY)}`;
+  const gb = groupBy ? `&group_by=${encodeURIComponent(groupBy)}` : "";
+  const url = `${PACE_URL}/statutory/payroll?year=${year}&api_key=${encodeURIComponent(PACE_KEY)}${gb}`;
   try {
     const res = await fetch(url);
     const json = await res.json();
@@ -30,8 +31,9 @@ const syncPayroll = async (req, res, next) => {
       throw new Error("fy is required (e.g. 2026-27)");
     }
     const sy = parseInt(fy.slice(0, 4), 10); // FY start year
+    const groupBy = req.query.group_by; // e.g. "branch" → each month gets a branches[] array
 
-    const [y1, y2] = await Promise.all([fetchPaceYear(sy), fetchPaceYear(sy + 1)]);
+    const [y1, y2] = await Promise.all([fetchPaceYear(sy, groupBy), fetchPaceYear(sy + 1, groupBy)]);
     if (y1 === null && y2 === null) {
       return res.json({ fy, reachable: false, months: [] });
     }

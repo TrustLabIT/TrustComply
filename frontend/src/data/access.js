@@ -36,6 +36,6 @@ export function consultantExpiring(u) {
 export function navAllowed(user, id) {
   if (id === "settings") return isAdmin(user);
   if ((id || "").startsWith("cs-")) return canSeeModule(user, "CS");
-  if ((id || "").startsWith("ca-")) return canSeeModule(user, "CA");
+  if ((id || "").startsWith("ca-") || (id || "").startsWith("emp-")) return canSeeModule(user, "CA");
   return true;
 }

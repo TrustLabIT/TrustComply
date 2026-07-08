@@ -18,9 +18,10 @@ import CsRegisters from "./pages/CsRegisters";
 import CaTds from "./pages/CaTds";
 import CaGst from "./pages/CaGst";
 import CaIt from "./pages/CaIt";
-import CaPayroll from "./pages/CaPayroll";
+import EmpEpfo from "./pages/EmpEpfo";
+import EmpEsi from "./pages/EmpEsi";
+import EmpPt from "./pages/EmpPt";
 import Archive from "./pages/Archive";
-import Regime from "./pages/Regime";
 import Settings from "./pages/Settings";
 import MedicalLicence from "./pages/MedicalLicence";
 
@@ -58,12 +59,14 @@ export default function App() {
         <Route path="ca/tds" element={<RequireAccess navId="ca-tds"><CaTds /></RequireAccess>} />
         <Route path="ca/gst" element={<RequireAccess navId="ca-gst"><CaGst /></RequireAccess>} />
         <Route path="ca/it" element={<RequireAccess navId="ca-it"><CaIt /></RequireAccess>} />
-        <Route path="ca/payroll" element={<RequireAccess navId="ca-payroll"><CaPayroll /></RequireAccess>} />
+
+        <Route path="emp/epfo" element={<RequireAccess navId="emp-epfo"><EmpEpfo /></RequireAccess>} />
+        <Route path="emp/esi" element={<RequireAccess navId="emp-esi"><EmpEsi /></RequireAccess>} />
+        <Route path="emp/pt" element={<RequireAccess navId="emp-pt"><EmpPt /></RequireAccess>} />
 
         <Route path="medical/licence" element={<MedicalLicence />} />
 
         <Route path="archive" element={<Archive />} />
-        <Route path="regime" element={<Regime />} />
         <Route path="settings" element={<RequireAccess navId="settings"><Settings /></RequireAccess>} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
