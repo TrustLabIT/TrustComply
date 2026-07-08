@@ -19,7 +19,7 @@ root.render(
         <CssBaseline />
         <ToastProvider>
           <AuthProvider>
-            <BrowserRouter basename={process.env.PUBLIC_URL}>
+            <BrowserRouter>
               <DrawerProvider>
                 <App />
               </DrawerProvider>
