@@ -12,6 +12,7 @@ const payrollRoutes = require("./routes/payroll.routes");
 const medicalRoutes = require("./routes/medical.routes");
 const empFilingRoutes = require("./routes/empFiling.routes");
 const branchConfigRoutes = require("./routes/branchConfig.routes");
+const moduleStoreRoutes = require("./routes/moduleStore.routes");
 const { notFound, errorHandler } = require("./middleware/error.middleware");
 
 const app = express();
@@ -53,6 +54,7 @@ app.use("/api/payroll-sync", payrollRoutes);
 app.use("/api/medical", medicalRoutes);
 app.use("/api/emp-filings", empFilingRoutes);
 app.use("/api/branch-configs", branchConfigRoutes);
+app.use("/api/module-store", moduleStoreRoutes);
 
 app.get("/", (req, res) => {
   res.json({ message: "TrustComply API is running" });

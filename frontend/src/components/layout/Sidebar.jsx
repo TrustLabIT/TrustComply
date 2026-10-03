@@ -6,6 +6,7 @@ import { useCurrentUser, useRows } from "../../store/hooks";
 import { navAllowed } from "../../data/access";
 import { isOpen, isOverdue } from "../../data/helpers";
 import { useToast } from "../../context/ToastContext";
+import { useBadge } from "../../modules/trufin/badges";
 
 export const RAIL_WIDTH = 248;
 
@@ -18,6 +19,8 @@ export default function Sidebar({ onNavigate }) {
   const user = useCurrentUser();
   const rows = useRows();
   const toast = useToast();
+  // Overdue count raised by the Secretarial calendar (shown on its "Calendar" item).
+  const secOverdue = useBadge("secretarial:overdue");
 
   const openCount = (sel) => rows.filter(sel).filter(isOpen).length;
   const odCount = (sel) => rows.filter(sel).filter(isOverdue).length;
@@ -62,6 +65,7 @@ export default function Sidebar({ onNavigate }) {
           if (od > 0) badge = <Badge tone="bad">{od} overdue</Badge>;
           else if (op > 0) badge = <Badge tone="ok">{op}</Badge>;
         }
+        if (n.id === "sec-overview" && secOverdue > 0) badge = <Badge tone="bad">{secOverdue}</Badge>;
         return (
           <Box
             key={n.id}

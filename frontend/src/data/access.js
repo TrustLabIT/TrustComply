@@ -35,7 +35,8 @@ export function consultantExpiring(u) {
 // Is a nav id visible to this user?
 export function navAllowed(user, id) {
   if (id === "settings") return isAdmin(user);
-  if ((id || "").startsWith("cs-")) return canSeeModule(user, "CS");
+  if ((id || "").startsWith("cs-") || (id || "").startsWith("sec-")) return canSeeModule(user, "CS");
+  if ((id || "").startsWith("acc-")) return canSeeModule(user, "CA");
   if ((id || "").startsWith("ca-") || (id || "").startsWith("emp-")) return canSeeModule(user, "CA");
   return true;
 }

@@ -24,6 +24,8 @@ import EmpPt from "./pages/EmpPt";
 import Archive from "./pages/Archive";
 import Settings from "./pages/Settings";
 import MedicalLicence from "./pages/MedicalLicence";
+import Accounts from "./pages/Accounts";
+import Secretarial from "./pages/Secretarial";
 
 export default function App() {
   const { user, loading } = useAuth();
@@ -63,6 +65,11 @@ export default function App() {
         <Route path="emp/epfo" element={<RequireAccess navId="emp-epfo"><EmpEpfo /></RequireAccess>} />
         <Route path="emp/esi" element={<RequireAccess navId="emp-esi"><EmpEsi /></RequireAccess>} />
         <Route path="emp/pt" element={<RequireAccess navId="emp-pt"><EmpPt /></RequireAccess>} />
+
+        <Route path="accounts" element={<Navigate to="/accounts/pl" replace />} />
+        <Route path="accounts/:tab" element={<RequireAccess navId="acc-pl"><Accounts /></RequireAccess>} />
+        <Route path="secretarial" element={<Navigate to="/secretarial/overview" replace />} />
+        <Route path="secretarial/:tab" element={<RequireAccess navId="sec-overview"><Secretarial /></RequireAccess>} />
 
         <Route path="medical/licence" element={<MedicalLicence />} />
 
