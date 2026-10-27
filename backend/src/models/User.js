@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema(
     mobile: { type: String, default: "" },
     entities: { type: [String], default: ["TDPL"] },
     status: { type: String, enum: ["invited", "active", "disabled"], default: "active" },
+    matchUuid: { type: String, default: null, index: true }, // PACE cross-app person key
     last: { type: String, default: "" },
   },
   {
