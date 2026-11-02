@@ -13,6 +13,7 @@ import { useCurrentUser } from "../store/hooks";
 import { useToast } from "../context/ToastContext";
 import { useDrawers } from "../context/DrawerContext";
 import { getUsersPageApi } from "../api/users";
+import { getLoginBrandingApi, updateLoginBrandingApi } from "../api/loginBranding";
 import { fmt } from "../data/helpers";
 import { consultantExpiring } from "../data/access";
 import { ROLE_DEF } from "../data/constants";
@@ -49,6 +50,82 @@ const MATRIX = [
   ["Export / import register (JSON)", "✓", "✗", "✗", "✗"],
   ["Settings — user & consultant setup", "✓", "✗", "✗", "✗"],
 ];
+
+const LOGIN_TITLE_MAX = 40;
+const LOGIN_DEPT_MAX = 60;
+
+// Title + department shown under the logo on the sign-in screen.
+function LoginPageCard() {
+  const toast = useToast();
+  const [v, setV] = useState({ title: "", department: "" });
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    getLoginBrandingApi()
+      .then((b) => { if (active) setV({ title: b.title || "TRUSTCOMPLY", department: b.department || "" }); })
+      .catch(() => { if (active) setV({ title: "TRUSTCOMPLY", department: "" }); })
+      .finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
+  }, []);
+
+  const title = v.title.trim();
+  const titleErr = !title ? "Login title is required" : title.length > LOGIN_TITLE_MAX ? `Max ${LOGIN_TITLE_MAX} characters` : "";
+  const deptErr = v.department.trim().length > LOGIN_DEPT_MAX ? `Max ${LOGIN_DEPT_MAX} characters` : "";
+
+  const save = async () => {
+    if (titleErr || deptErr) { toast(titleErr || deptErr, "error"); return; }
+    setSaving(true);
+    try {
+      const b = await updateLoginBrandingApi({ title: title.toUpperCase(), department: v.department.trim() });
+      setV({ title: b.title, department: b.department || "" });
+      toast("Login page updated", "success");
+    } catch (e) { toast(e.message || "Save failed", "error"); }
+    finally { setSaving(false); }
+  };
+
+  return (
+    <SectionCard title="Login Page">
+      <Typography sx={{ color: "text.secondary", fontSize: "13px", mb: 1.75 }}>
+        Shown under the logo on the sign-in screen. The title always displays in capitals; leave department blank to hide that line.
+      </Typography>
+      {loading ? (
+        <Box sx={{ display: "flex", justifyContent: "center", py: 2 }}><CircularProgress size={22} sx={{ color: "brand.teal" }} /></Box>
+      ) : (
+        <Grid container spacing={1.75} alignItems="flex-start">
+          <Grid item xs={12} sm={5}>
+            <TextField
+              fullWidth size="small" label="Login Title" required
+              value={v.title}
+              onChange={(e) => setV((x) => ({ ...x, title: e.target.value.toUpperCase() }))}
+              inputProps={{ maxLength: LOGIN_TITLE_MAX }}
+              error={!!titleErr}
+              helperText={titleErr || `${v.title.length}/${LOGIN_TITLE_MAX}`}
+              sx={{ bgcolor: "#fff" }}
+            />
+          </Grid>
+          <Grid item xs={12} sm={5}>
+            <TextField
+              fullWidth size="small" label="Department"
+              value={v.department}
+              onChange={(e) => setV((x) => ({ ...x, department: e.target.value }))}
+              inputProps={{ maxLength: LOGIN_DEPT_MAX }}
+              error={!!deptErr}
+              helperText={deptErr || `Optional · ${v.department.length}/${LOGIN_DEPT_MAX}`}
+              sx={{ bgcolor: "#fff" }}
+            />
+          </Grid>
+          <Grid item xs={12} sm={2}>
+            <Button fullWidth variant="contained" onClick={save} disabled={saving || !!titleErr || !!deptErr} sx={{ bgcolor: "brand.teal", "&:hover": { bgcolor: "brand.tealDark" } }}>
+              {saving ? "Saving…" : "Save"}
+            </Button>
+          </Grid>
+        </Grid>
+      )}
+    </SectionCard>
+  );
+}
 
 export default function Settings() {
   const current = useCurrentUser();
@@ -189,6 +266,8 @@ export default function Settings() {
           </Box>
         )}
       </SectionCard>
+
+      <LoginPageCard />
 
       <SectionCard title="Role permission matrix">
         <TableContainer sx={{ overflowX: "auto" }}>

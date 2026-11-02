@@ -14,6 +14,7 @@ const empFilingRoutes = require("./routes/empFiling.routes");
 const branchConfigRoutes = require("./routes/branchConfig.routes");
 const moduleStoreRoutes = require("./routes/moduleStore.routes");
 const provisioningRoutes = require("./routes/provisioning.routes");
+const loginBrandingRoutes = require("./routes/loginBranding.routes");
 const { notFound, errorHandler } = require("./middleware/error.middleware");
 
 const app = express();
@@ -57,6 +58,7 @@ app.use("/api/emp-filings", empFilingRoutes);
 app.use("/api/branch-configs", branchConfigRoutes);
 app.use("/api/module-store", moduleStoreRoutes);
 app.use("/api/provisioning", provisioningRoutes);
+app.use("/api/login-branding", loginBrandingRoutes);
 
 app.get("/", (req, res) => {
   res.json({ message: "TrustComply API is running" });
