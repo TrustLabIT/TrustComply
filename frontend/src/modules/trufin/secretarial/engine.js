@@ -1,12 +1,12 @@
 /* eslint-disable */
-// TruFin Secretarial (Secretarial & corporate compliance module) — ported from the TruFin reference page (trufin-secretarial.html).
+// TruFin Secretarial (Secretarial & Corporate Compliance module), ported from the TruFin reference page (trufin-secretarial.html)
+// by scripts/trufin-convert.js. Do not edit by hand: re-run the script instead.
 // The page's own logic is kept as-is; only the host hooks differ: it renders into
 // ROOT, takes its tab from the sidebar route, and stores data and files on the
 // TrustComply server (HOST.openDB / HOST.files) instead of the browser.
 const MARKUP="<div class=\"wrap\">\n<header class=\"top\">\n  <div class=\"bar\">\n    <div class=\"entity\">\n      <div class=\"mark\" aria-hidden=\"true\">T</div>\n      <div style=\"min-width:0\"><h1 id=\"coName\">TrustLab Diagnostics Private Limited</h1><div class=\"cin\" id=\"coCin\">Secretarial &amp; corporate compliance</div></div>\n    </div>\n    <div class=\"controls\">\n      <div class=\"ctl\"><label for=\"fySel\">Compliance year</label><select id=\"fySel\"></select></div>\n      <button id=\"dlBtn\" class=\"btn dlbtn\" type=\"button\" aria-haspopup=\"dialog\"><svg viewBox=\"0 0 16 16\" width=\"14\" height=\"14\" aria-hidden=\"true\"><path d=\"M8 2v8m0 0-3.2-3.2M8 10l3.2-3.2M3 13h10\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>Download</button>\n      <button id=\"bkBtn\" class=\"btn small\" type=\"button\" hidden>Backup</button>\n      <button id=\"rsBtn\" class=\"btn small\" type=\"button\" hidden>Restore</button>\n      <input type=\"file\" id=\"rsFile\" accept=\".json,application/json\" hidden>\n      <span id=\"saveState\" class=\"save\" aria-live=\"polite\"></span>\n    </div>\n  </div>\n  <nav class=\"tabs\" role=\"tablist\" id=\"tabs\">\n    <button role=\"tab\" data-tab=\"overview\">Calendar<span class=\"count\" hidden></span></button>\n    <button role=\"tab\" data-tab=\"meetings\">Meetings</button>\n    <button role=\"tab\" data-tab=\"resolutions\">Resolutions</button>\n    <button role=\"tab\" data-tab=\"directors\">Directors &amp; KMP</button>\n    <button role=\"tab\" data-tab=\"shareholders\">Shareholders</button>\n    <button role=\"tab\" data-tab=\"events\">Events &amp; charges</button>\n    <button role=\"tab\" data-tab=\"registers\">Registers</button>\n    <button role=\"tab\" data-tab=\"docs\">Documents</button>\n    <span class=\"sep\" aria-hidden=\"true\"></span>\n    <button role=\"tab\" data-tab=\"settings\">Settings</button>\n  </nav>\n</header>\n<main id=\"main\"></main>\n</div>\n<div id=\"scrim\" class=\"scrim\" hidden></div>\n<div id=\"viewer\" class=\"viewer\" role=\"dialog\" aria-modal=\"true\" aria-label=\"Document\" hidden></div>\n<aside id=\"exp\" class=\"drawer\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"expTitle\" hidden></aside>\n<div id=\"toast\" class=\"toast\" hidden></div>";
 
 export function mountSecretarial(ROOT,HOST){
-
 "use strict";
 /* ---- host integration ---- */
 let DEAD=false;const CLEAN=[];
@@ -1465,12 +1465,14 @@ function subscribe(){
   L("filings",a=>{fils={};for(const x of a){const k=x.id;const c=Object.assign({},x);delete c.id;fils[k]=c;}});
 }
 render();
-(async()=>{isLocal=true;uid=HOST.uid||null;canWrite=!!HOST.canWrite;setSave("Loading…");
+(async()=>{isLocal=true;uid=HOST.uid||null;canWrite=!!HOST.canWrite;
+  setSave("Loading…");
   try{db=await HOST.openDB();}catch(e){db=null;toast("Couldn’t load the secretarial records. "+(e&&e.message||""));}
-  if(DEAD)return;dbReady=true;
+  if(DEAD)return;
+  dbReady=true;
   if(!db){render();return;}
-  $("#bkBtn").hidden=false;$("#rsBtn").hidden=!canWrite;subscribe();})();
-
+  $("#bkBtn").hidden=false;$("#rsBtn").hidden=!canWrite;
+  subscribe();})();
 
 /* ---- host API ---- */
 return {

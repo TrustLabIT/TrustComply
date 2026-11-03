@@ -1,4 +1,4 @@
-/* Scoped from the TruFin reference page. */
+/* Scoped from the TruFin reference page by scripts/trufin-convert.js. */
 .tf-acc{
   --bg:#f3f6f2; --surface:#ffffff; --sunk:#eaf0e9; --ink:#16211a; --muted:#5a6a60; --line:#d9e1d8; --line-strong:#9fb0a3;
   --brand:#1c6a3b; --brand-ink:#ffffff; --brand-soft:#e1efe4; --gold:#a97f00; --gold-soft:#fbf1cf; --neg:#b3261e; --neg-soft:#fbe4e1;
@@ -141,6 +141,15 @@
 .tf-acc .brk input[type=text].rl{width:100%;border-color:transparent;background:transparent;padding:3px 4px}
 .tf-acc .brk input[type=text].rl:hover,.tf-acc .brk input[type=text].rl:focus{border-color:var(--line-strong);background:var(--surface)}
 .tf-acc .agree{font-size:12px;margin-top:6px}
+.tf-acc .ptab td{padding:3px 6px}
+.tf-acc .ptab input[type=text].pin{padding:4px 6px;max-width:none}
+.tf-acc .ptab select{max-width:200px;font-size:12.5px;padding:4px 4px}
+.tf-acc .ptab tr.tot td{font-weight:700;border-top:1px solid var(--ink);border-bottom:3px double var(--ink)}
+.tf-acc .ptab td.prev{color:var(--muted)}
+.tf-acc .ptab th.adv-h{background:var(--gold-soft);color:var(--gold)}
+.tf-acc details.advguide{border:1px solid var(--line);border-radius:8px;background:var(--bg);padding:8px 12px}
+.tf-acc details.advguide summary{cursor:pointer;font-weight:600;color:var(--brand)}
+.tf-acc details.advguide ul{margin:8px 0 2px;padding-left:20px;display:flex;flex-direction:column;gap:5px;font-size:13px;max-width:110ch}
 .tf-acc .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;align-items:start}
 .tf-acc .lay{width:100%;font-size:13px}
 .tf-acc .lay td{border-bottom:1px solid var(--line);padding:4px 6px}
@@ -220,6 +229,93 @@
 .tf-acc .secs li+li{border-top:1px solid var(--line)}
 .tf-acc .secs li>div:first-child{min-width:0;flex:1 1 180px}
 .tf-acc .secs strong{font-size:13.2px;font-weight:600}
+.tf-acc{--s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s4:#eda100;--s5:#e87ba4;--s6:#008300;--s7:#4a3aa7}
+.tf-acc .seg-wrap{flex-wrap:wrap;align-self:flex-start}
+.tf-acc .ycmp{flex-wrap:wrap}
+.tf-acc .seg .seg-l{display:inline-flex;align-items:center;padding:6px 10px;font-size:11px;text-transform:uppercase;letter-spacing:.07em;font-weight:700;color:var(--muted);background:var(--sunk);border-right:1px solid var(--line)}
+.tf-acc .seg button:disabled{opacity:.4;cursor:not-allowed}
+.tf-acc .cmp td.cur,.tf-acc .cmp th.cur{background:var(--brand-soft)}
+.tf-acc table.cmp.wide{min-width:900px}
+.tf-acc .s1{fill:var(--s1);background:var(--s1)}
+.tf-acc .s2{fill:var(--s2);background:var(--s2)}
+.tf-acc .s3{fill:var(--s3);background:var(--s3)}
+.tf-acc .s4{fill:var(--s4);background:var(--s4)}
+.tf-acc .s5{fill:var(--s5);background:var(--s5)}
+.tf-acc .s6{fill:var(--s6);background:var(--s6)}
+.tf-acc .s7{fill:var(--s7);background:var(--s7)}
+.tf-acc .chart svg{width:100%;min-width:500px;height:auto;display:block}
+.tf-acc .chart svg .cg{stroke:var(--line);stroke-width:1}
+.tf-acc .chart svg .cg.z{stroke:var(--line-strong)}
+.tf-acc .chart svg .ca{fill:var(--muted);font-size:11px;font-family:var(--f-body)}
+.tf-acc .chart svg [data-tip]{cursor:default;outline:none}
+.tf-acc .chart svg path[data-tip]:hover,.tf-acc .chart svg path[data-tip]:focus{opacity:.82}
+.tf-acc .chart svg .hov{fill:transparent}
+.tf-acc .chart svg .hov:hover,.tf-acc .chart svg .hov:focus{fill:var(--sunk)}
+.tf-acc .chart svg .ln1{fill:none;stroke:var(--s1);stroke-width:2}
+.tf-acc .chart svg .ln2{fill:none;stroke:var(--s2);stroke-width:2}
+.tf-acc .chart svg .dt1{fill:var(--s1);stroke:var(--surface);stroke-width:2;pointer-events:none}
+.tf-acc .chart svg .dt2{fill:var(--s2);stroke:var(--surface);stroke-width:2;pointer-events:none}
+.tf-acc .lgd{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12.5px;color:var(--ink);margin-bottom:8px;align-items:center}
+.tf-acc .lgd i,.tf-acc i.key{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.tf-acc .lgd .sub{margin-left:auto}
+.tf-acc .rbar-row{display:grid;grid-template-columns:62px minmax(0,1fr);gap:10px;align-items:center;margin-bottom:8px;font-size:12.5px}
+.tf-acc .rbar-y{color:var(--muted);font-weight:600}
+.tf-acc .rbar{display:flex;gap:2px;height:22px;border-radius:5px;overflow:hidden;background:var(--sunk)}
+.tf-acc .rbar span{display:block;height:100%;min-width:2px}
+.tf-acc .rbar span:hover,.tf-acc .rbar span:focus{opacity:.82;outline:none}
+.tf-acc .rtab{margin-top:10px;font-size:12.5px}
+.tf-acc .rtab th,.tf-acc .rtab td{border-bottom:1px solid var(--line)}
+.tf-acc .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.tf-acc .kpi{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.tf-acc .kpi .kl{font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+.tf-acc .kpi b{font-family:var(--f-display);font-size:22px;font-weight:600;line-height:1.25;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.tf-acc .kd{font-size:12.5px;font-weight:600;color:var(--muted)}
+.tf-acc .ks{font-size:12px;color:var(--muted)}
+.tf-acc .kd.good,.tf-acc td.good{color:var(--brand)}
+.tf-acc .kd.bad,.tf-acc td.bad{color:var(--neg)}
+.tf-acc .warn-t{color:var(--gold);font-weight:600}
+.tf-acc .bad-t{color:var(--neg);font-weight:600}
+.tf-acc .obs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.tf-acc .obs li{display:grid;grid-template-columns:118px minmax(0,1fr);gap:10px;align-items:start;padding:9px 12px;border-radius:8px;background:var(--bg);border-left:3px solid var(--line-strong);font-size:13.5px;line-height:1.5}
+@media (max-width:520px){.tf-acc .obs li{grid-template-columns:1fr;gap:4px}
+}
+.tf-acc .o-risk{border-left-color:var(--neg)!important}
+.tf-acc .o-watch{border-left-color:var(--gold)!important}
+.tf-acc .o-good{border-left-color:var(--brand)!important}
+.tf-acc .ob-tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;display:inline-flex;gap:7px;align-items:center;color:var(--muted);padding-top:1px}
+.tf-acc .ob-tag b{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;font-size:11px;background:var(--muted);color:var(--surface)}
+.tf-acc .o-risk .ob-tag{color:var(--neg)}
+.tf-acc .o-risk .ob-tag b{background:var(--neg)}
+.tf-acc .o-watch .ob-tag{color:var(--gold)}
+.tf-acc .o-watch .ob-tag b{background:var(--gold)}
+.tf-acc .o-good .ob-tag{color:var(--brand)}
+.tf-acc .o-good .ob-tag b{background:var(--brand)}
+.tf-acc .cols2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:18px;align-items:start}
+.tf-acc .dupont{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px}
+.tf-acc .dbox{flex:1 1 130px;border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--bg);display:flex;flex-direction:column;gap:2px;min-width:0}
+.tf-acc .dbox span{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:700}
+.tf-acc .dbox b{font-family:var(--f-display);font-size:21px;font-weight:600;font-variant-numeric:tabular-nums}
+.tf-acc .dbox em{font-style:normal;font-size:12px;color:var(--muted)}
+.tf-acc .dbox:last-child{border-color:var(--brand);background:var(--brand-soft)}
+.tf-acc .dupont .op{align-self:center;font-size:18px;color:var(--muted);padding:0 2px}
+.tf-acc table.cmp{min-width:720px;font-size:13px}
+.tf-acc .cmp th,.tf-acc .cmp td{border-bottom:1px solid var(--line)}
+.tf-acc .cmp thead th{background:var(--sunk);vertical-align:bottom}
+.tf-acc .cmp .cg-g td{font-family:var(--f-display);font-weight:600;font-size:15px;padding-top:14px;border-bottom:none}
+.tf-acc .cmp .cg-h td{font-weight:600;background:var(--bg)}
+.tf-acc .cmp .cr-sub td{font-weight:600}
+.tf-acc .cmp .cr-tot td{font-weight:700;border-top:1px solid var(--ink);border-bottom:3px double var(--ink)}
+.tf-acc .cmp .cr-memo td{color:var(--muted);font-style:italic}
+.tf-acc .cmp .cr-diff td{font-weight:600}
+.tf-acc .cmp tr.flag td{background:var(--gold-soft)}
+.tf-acc .fdot{color:var(--gold);margin-right:6px;font-size:10px;vertical-align:1px}
+.tf-acc table.rat{min-width:560px}
+.tf-acc table.s3t{min-width:760px}
+.tf-acc table.cf{min-width:480px}
+.tf-acc .cmp tr.need td{background:var(--gold-soft)}
+.tf-acc .trend td.cur,.tf-acc .trend th.cur{background:var(--brand-soft)}
+.tf-acc .tip{position:fixed;z-index:60;pointer-events:none;background:var(--surface);color:var(--ink);border:1px solid var(--line-strong);border-radius:7px;padding:7px 10px;font-size:12.5px;box-shadow:0 8px 24px rgba(0,0,0,.16);display:flex;flex-direction:column;gap:2px;max-width:280px;font-variant-numeric:tabular-nums}
+.tf-acc .tip b{font-weight:700}
 @media (max-width:640px){.tf-acc .sheet{padding:16px 14px 20px}
 .tf-acc .entity h1{font-size:16px}
 }
@@ -235,4 +331,5 @@
 .tf-acc .drawer{z-index:1301}
 .tf-acc .viewer{z-index:1302}
 .tf-acc .toast{z-index:1400}
+.tf-acc .tip{z-index:1450}
 .tf-acc h1,.tf-acc h2,.tf-acc h3,.tf-acc h4,.tf-acc p{letter-spacing:normal}
